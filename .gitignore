@@ -1,0 +1,5 @@
+.installs/*
+!.installs/.gitkeep
+
+output/*
+!output/.gitkeep

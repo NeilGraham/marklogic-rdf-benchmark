@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Set the directory containing .nt files
+dir="/path/to/your/directory"
+
+# Regex pattern to match URLs within Literals
+url_pattern='(http|https|ftp|ftps)://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}(/\S*)?'
+
+# Regex pattern to match Literals in the N-Triples format
+literal_pattern="\"{[^\"\}]*$url_pattern[^\"\}]*}\""
+
+# Loop through all .nt files in the directory
+for file in "$dir"/*.nt; do
+  echo "Processing file: $file"
+  
+  # Find Literals with URLs, extract the URLs, and remove leading/trailing quotes
+  grep -oE "$literal_pattern" "$file" | grep -oE "$url_pattern"
+done
